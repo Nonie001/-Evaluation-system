@@ -75,10 +75,9 @@ export default function EvaluationForm() {
       </div>
 
       {/* Quality Assessment */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300">
-        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
+      <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
+        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">
             การประเมินด้านคุณภาพ
           </h3>
         </div>
@@ -88,10 +87,9 @@ export default function EvaluationForm() {
       </div>
 
       {/* Behavior Assessment */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300">
-        <div className="bg-gradient-to-r from-purple-50 to-pink-50 px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+      <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
+        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">
             การประเมินด้านพฤติกรรม
           </h3>
         </div>
@@ -101,10 +99,9 @@ export default function EvaluationForm() {
       </div>
 
       {/* Score Summary */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300">
-        <div className="bg-gradient-to-r from-amber-50 to-orange-50 px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <div className="w-2 h-2 bg-amber-500 rounded-full"></div>
+      <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
+        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">
             สรุปผลการประเมิน
           </h3>
         </div>
@@ -114,10 +111,9 @@ export default function EvaluationForm() {
       </div>
 
       {/* Additional Comments */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300">
-        <div className="bg-gradient-to-r from-gray-50 to-slate-50 px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <div className="w-2 h-2 bg-gray-500 rounded-full"></div>
+      <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
+        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
+          <h3 className="text-lg font-semibold text-gray-900">
             ความเห็นเพิ่มเติม
           </h3>
         </div>
@@ -126,7 +122,7 @@ export default function EvaluationForm() {
             <textarea
               {...register('additionalComments')}
               rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 resize-none transition-all duration-200"
+              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 resize-none transition-all duration-200"
               placeholder="ระบุความเห็นเพิ่มเติม หรือข้อเสนอแนะ..."
             />
 
@@ -138,7 +134,7 @@ export default function EvaluationForm() {
                 <input
                   {...register('evaluatorName', { required: 'กรุณาระบุชื่อผู้ประเมิน' })}
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-200"
                   placeholder="ชื่อ-สกุล ผู้ประเมิน"
                 />
                 {errors.evaluatorName && (
@@ -155,7 +151,7 @@ export default function EvaluationForm() {
                 <input
                   {...register('evaluatorPosition', { required: 'กรุณาระบุตำแหน่ง' })}
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-200"
                   placeholder="ตำแหน่งผู้ประเมิน"
                 />
                 {errors.evaluatorPosition && (
@@ -172,13 +168,12 @@ export default function EvaluationForm() {
 
       {/* Submit Button */}
       <div className="flex justify-center pt-6">
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
+        <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6">
           <button
             type="submit"
             disabled={isGenerating}
-            className="group relative overflow-hidden bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-xl font-medium hover:from-blue-700 hover:to-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 min-w-[200px]"
+            className="relative overflow-hidden bg-gray-800 text-white px-8 py-4 rounded-xl font-medium hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 min-w-[200px]"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div className="relative flex items-center justify-center gap-3">
               <FileDown size={20} className={isGenerating ? 'animate-pulse' : ''} />
               <span>

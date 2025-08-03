@@ -1,7 +1,8 @@
 {
-  "name": "sss",
+  "name": "employee-evaluation-system",
   "version": "0.1.0",
   "private": true,
+  "description": "ระบบประเมินการทำงาน - Employee Work Evaluation System",
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",

@@ -17,8 +17,8 @@ export default function EmployeeInfoSection({ register, errors }: Props) {
         <div className="inline-flex items-center gap-4">
           <User className="w-12 h-12 text-gray-600" />
           <div>
-            <h1 className="text-3xl font-bold text-gray-800">แบบประเมินผลงานพนักงาน</h1>
-            <p className="text-lg text-gray-600 mt-1">ข้อมูลพนักงานและการประเมิน</p>
+            <h1 className="text-3xl font-bold text-gray-800">ระบบประเมินการทำงาน</h1>
+            <p className="text-lg text-gray-600 mt-1">ข้อมูลพนักงานและการประเมินผลงาน</p>
           </div>
         </div>
       </div>
@@ -32,7 +32,7 @@ export default function EmployeeInfoSection({ register, errors }: Props) {
           <input
             {...register('employeeName', { required: 'กรุณาระบุชื่อ-สกุล' })}
             type="text"
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-200"
             placeholder="ระบุชื่อ-สกุล"
           />
           {errors.employeeName && (
@@ -50,7 +50,7 @@ export default function EmployeeInfoSection({ register, errors }: Props) {
           <input
             {...register('department', { required: 'กรุณาระบุส่วน/ฝ่าย' })}
             type="text"
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-200"
             placeholder="ระบุส่วน/ฝ่าย"
           />
           {errors.department && (
@@ -68,7 +68,7 @@ export default function EmployeeInfoSection({ register, errors }: Props) {
           <input
             {...register('position')}
             type="text"
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-200"
             placeholder="ระบุตำแหน่ง"
           />
         </div>
@@ -80,7 +80,7 @@ export default function EmployeeInfoSection({ register, errors }: Props) {
           <input
             {...register('salary')}
             type="text"
-            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all duration-200"
+            className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-200"
             placeholder="0"
           />
         </div>

@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ระบบประเมินการทดลองงาน - สภาเครือข่ายช่วยเหลือด้านมนุษยธรรม",
-  description: "ระบบประเมินการทดลองงานเจ้าหน้าที่ออนไลน์ พร้อมสร้าง PDF รายงานผลการประเมิน",
-  keywords: "ประเมินการทดลองงาน, PDF, รายงาน, HR, เจ้าหน้าที่",
-  authors: [{ name: "สภาเครือข่ายช่วยเหลือด้านมนุษยธรรม สำนักจุฬาราชมนตรี" }]
+  title: "ระบบประเมินการทำงาน - Employee Work Evaluation System",
+  description: "ระบบประเมินผลการทำงานพนักงานออนไลน์ พร้อมสร้าง PDF รายงานผลการประเมิน",
+  keywords: "ประเมินการทำงาน, PDF, รายงาน, HR, พนักงาน, ระบบประเมิน",
+  authors: [{ name: "Employee Evaluation System" }]
 };
 
 export default function RootLayout({
