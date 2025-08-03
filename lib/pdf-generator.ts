@@ -269,7 +269,7 @@ function generateHeader(data: EvaluationData, logoImage: string): string {
   return `
     <div class="header">
       <img src="${logoImage}" alt="Logo" class="logo" />
-      <h1 style="margin: 10px 0 5px 0; font-size: 18px; font-weight: 600; color: #333;">แบบประเมินการทดลองงานเจ้าหน้าที่</h1>
+      <h1 style="margin: 10px 0 5px 0; font-size: 18px; font-weight: 600; color: #333;">แบบประเมินการทำงานพนักงาน</h1>
       <p style="margin: 5px 0; font-size: 14px; color: #333;">สภาเครือข่ายช่วยเหลือด้านมนุษยธรรม สำนักจุฬาราชมนตรี</p>
       <p style="margin: 5px 0 0 0; font-size: 14px; color: #333;">ประจำเดือน ${data.evaluationMonth || '......'} พ.ศ. ${data.evaluationYear || '......'}</p>
     </div>
@@ -304,7 +304,7 @@ function generateEmployeeSection(data: EvaluationData): string {
         </div>
         
         <div class="info-item" style="grid-column: 1 / -1;">
-          <span class="info-label">ระยะเวลาทดลองงาน:</span>
+          <span class="info-label">ระยะเวลาการทำงาน:</span>
           <span class="info-value">${formatDate(data.probationStart)} ถึง ${formatDate(data.probationEnd)}</span>
         </div>
 

@@ -99,7 +99,7 @@ function generateHTMLTemplate(data: EvaluationData): string {
     </style>
   </head>
   <body>
-    <h1>แบบประเมินการทดลองงานเจ้าหน้าที่</h1>
+    <h1>แบบประเมินการทำงานพนักงาน</h1>
     <h3>สภาเครือข่ายช่วยเหลือด้านมนุษยธรรม สำนักจุฬาราชมนตรี</h3>
     <h3>ประจำเดือน ${data.evaluationMonth} ${data.evaluationYear}</h3>
 
@@ -115,7 +115,7 @@ function generateHTMLTemplate(data: EvaluationData): string {
           <td><strong>อัตราค่าจ้าง:</strong> ${data.salary || '-'} บาท</td>
         </tr>
         <tr>
-          <td colspan="2"><strong>ระยะเวลาทดลองงาน:</strong> ${data.probationStart || '-'} ถึง ${data.probationEnd || '-'}</td>
+          <td colspan="2"><strong>ระยะเวลาการทำงาน:</strong> ${data.probationStart || '-'} ถึง ${data.probationEnd || '-'}</td>
         </tr>
         <tr>
           <td colspan="2">

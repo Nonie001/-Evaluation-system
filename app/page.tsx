@@ -56,7 +56,7 @@ export default function Home() {
         {/* Footer */}
         <footer className="text-center mt-12 pb-6">
           <div className="text-sm text-gray-500">
-            <p>พัฒนาโดยระบบประเมินการทดลองงานออนไลน์</p>
+            <p>พัฒนาโดยระบบประเมินการทำงานออนไลน์</p>
             <p className="mt-1">© 2025 สภาเครือข่ายช่วยเหลือด้านมนุษยธรรม สำนักจุฬาราชมนตรี</p>
           </div>
         </footer>

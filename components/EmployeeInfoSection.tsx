@@ -90,12 +90,12 @@ export default function EmployeeInfoSection({ register, errors }: Props) {
       <div className="bg-gray-50 rounded-xl p-6 border border-gray-200">
         <h4 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-3">
           <Calendar className="w-5 h-5 text-gray-600" />
-          ระยะเวลาทดลองงาน
+          ระยะเวลาการทำงาน
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">
-              วันที่เริ่มทดลองงาน
+              วันที่เริ่มการทำงาน
             </label>
             <input
               {...register('probationStart')}

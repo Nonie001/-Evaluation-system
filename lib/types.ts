@@ -6,8 +6,8 @@ export interface EvaluationData {
   employeeName: string;
   department: string;
   position: string;
-  probationStart: string;
-  probationEnd: string;
+  probationStart: string; // วันที่เริ่มการทำงาน
+  probationEnd: string;   // วันที่สิ้นสุดการประเมิน
   salary: string;
   evaluationMonth: string;
   evaluationYear: string;
