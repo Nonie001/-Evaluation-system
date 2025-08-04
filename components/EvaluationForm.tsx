@@ -60,73 +60,33 @@ export default function EvaluationForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      {/* Employee Information */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-all duration-300">
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900 flex items-center gap-2">
-            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-            ข้อมูลเจ้าหน้าที่
-          </h3>
-        </div>
-        <div className="p-6">
-          <EmployeeInfoSection register={register} errors={errors} />
-        </div>
-      </div>
+    <div className="max-w-4xl mx-auto">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-16">
+        <EmployeeInfoSection register={register} errors={errors} />
+        
+        <QualitySection register={register} />
+        
+        <BehaviorSection register={register} />
+        
+        <ScoreSummary formData={formData} />
 
-      {/* Quality Assessment */}
-      <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
-        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">
-            การประเมินด้านคุณภาพ
-          </h3>
-        </div>
-        <div className="p-6">
-          <QualitySection register={register} />
-        </div>
-      </div>
+        {/* Additional Comments */}
+        <div className="border-b border-gray-200 pb-6">
+          <h3 className="text-xl font-semibold text-gray-800 mb-6">ความเห็นเพิ่มเติม</h3>
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">
+                ข้อเสนอแนะ
+              </label>
+              <textarea
+                {...register('additionalComments')}
+                rows={4}
+                className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400 resize-none"
+                placeholder="ระบุความเห็นเพิ่มเติม หรือข้อเสนอแนะ..."
+              />
+            </div>
 
-      {/* Behavior Assessment */}
-      <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
-        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">
-            การประเมินด้านพฤติกรรม
-          </h3>
-        </div>
-        <div className="p-6">
-          <BehaviorSection register={register} />
-        </div>
-      </div>
-
-      {/* Score Summary */}
-      <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
-        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">
-            สรุปผลการประเมิน
-          </h3>
-        </div>
-        <div className="p-6">
-          <ScoreSummary formData={formData} />
-        </div>
-      </div>
-
-      {/* Additional Comments */}
-      <div className="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300">
-        <div className="bg-gray-50 px-6 py-4 border-b border-gray-200">
-          <h3 className="text-lg font-semibold text-gray-900">
-            ความเห็นเพิ่มเติม
-          </h3>
-        </div>
-        <div className="p-6">
-          <div className="space-y-4">
-            <textarea
-              {...register('additionalComments')}
-              rows={4}
-              className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 resize-none transition-all duration-200"
-              placeholder="ระบุความเห็นเพิ่มเติม หรือข้อเสนอแนะ..."
-            />
-
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   ชื่อผู้ประเมิน <span className="text-red-500">*</span>
@@ -134,12 +94,11 @@ export default function EvaluationForm() {
                 <input
                   {...register('evaluatorName', { required: 'กรุณาระบุชื่อผู้ประเมิน' })}
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-200"
+                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
                   placeholder="ชื่อ-สกุล ผู้ประเมิน"
                 />
                 {errors.evaluatorName && (
-                  <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                    <span>⚠️</span>
+                  <p className="text-red-500 text-sm mt-1">
                     {errors.evaluatorName.message}
                   </p>
                 )}
@@ -151,12 +110,11 @@ export default function EvaluationForm() {
                 <input
                   {...register('evaluatorPosition', { required: 'กรุณาระบุตำแหน่ง' })}
                   type="text"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:border-gray-500 transition-all duration-200"
+                  className="w-full px-3 py-2 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
                   placeholder="ตำแหน่งผู้ประเมิน"
                 />
                 {errors.evaluatorPosition && (
-                  <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
-                    <span>⚠️</span>
+                  <p className="text-red-500 text-sm mt-1">
                     {errors.evaluatorPosition.message}
                   </p>
                 )}
@@ -164,25 +122,38 @@ export default function EvaluationForm() {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Submit Button */}
-      <div className="flex justify-center pt-6">
-        <div className="bg-white rounded-2xl shadow-md border border-gray-200 p-6">
-          <button
-            type="submit"
-            disabled={isGenerating}
-            className="relative overflow-hidden bg-gray-800 text-white px-8 py-4 rounded-xl font-medium hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500/20 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 min-w-[200px]"
-          >
-            <div className="relative flex items-center justify-center gap-3">
-              <FileDown size={20} className={isGenerating ? 'animate-pulse' : ''} />
-              <span>
-                {isGenerating ? 'กำลังสร้าง PDF...' : 'ดาวน์โหลด PDF'}
-              </span>
-            </div>
-          </button>
+        {/* Submit Buttons */}
+        <div className="text-center py-8">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              type="submit"
+              disabled={isGenerating}
+              className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-gray-800 text-white font-medium hover:bg-gray-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {isGenerating ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  กำลังสร้าง PDF...
+                </>
+              ) : (
+                <>
+                  <FileDown className="w-4 h-4" />
+                  ดาวน์โหลด PDF
+                </>
+              )}
+            </button>
+            
+            <button
+              type="button"
+              className="inline-flex items-center justify-center gap-2 px-8 py-3 bg-white text-gray-700 font-medium border border-gray-300 hover:bg-gray-50 transition-colors"
+            >
+              <Save className="w-4 h-4" />
+              บันทึกข้อมูล
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }

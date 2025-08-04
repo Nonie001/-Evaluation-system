@@ -2,7 +2,7 @@
 
 import { UseFormRegister } from 'react-hook-form';
 import { EvaluationData } from '@/lib/types';
-import { Star } from 'lucide-react';
+import { Award } from 'lucide-react';
 
 interface Props {
   register: UseFormRegister<EvaluationData>;
@@ -18,56 +18,52 @@ const qualityItems = [
 
 export default function QualitySection({ register }: Props) {
   return (
-    <div className="space-y-4">
-      <div className="space-y-3">
+    <div className="border-b border-gray-200 pb-8">
+      <div className="flex items-center gap-3 mb-8">
+        <Award className="w-6 h-6 text-gray-600" />
+        <div>
+          <h3 className="text-2xl font-semibold text-gray-800">การประเมินด้านคุณภาพ</h3>
+          <p className="text-gray-600">Quality Assessment</p>
+        </div>
+      </div>
+
+      <div className="space-y-6">
         {qualityItems.map((item, index) => (
-          <div key={item.key} className="group bg-gradient-to-br from-white to-gray-50 rounded-xl p-4 border border-gray-200 hover:border-emerald-300 hover:shadow-lg transition-all duration-300">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div className="flex-1">
-                <div className="flex items-start gap-2">
-                  <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-xs font-medium text-emerald-600">{index + 1}</span>
-                  </div>
-                  <label className="text-sm text-gray-700 cursor-pointer leading-relaxed group-hover:text-gray-900 transition-colors">
-                    {item.label}
-                  </label>
-                </div>
+          <div key={item.key} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-b border-gray-100 last:border-b-0">
+            <div className="flex-1">
+              <div className="flex items-start gap-3">
+                <span className="w-6 h-6 bg-gray-200 text-gray-700 text-xs font-medium rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                  {index + 1}
+                </span>
+                <label className="text-sm text-gray-700 leading-relaxed">
+                  {item.label}
+                </label>
               </div>
-              <div className="flex items-center gap-3 justify-center sm:justify-end">
-                <div className="flex items-center gap-2 bg-white rounded-lg px-3 py-2 border border-gray-200 shadow-sm">
-                  <span className="text-xs font-medium text-gray-500">คะแนน:</span>
-                  <input
-                    {...register(`quality.${item.key as keyof EvaluationData['quality']}`, {
-                      valueAsNumber: true,
-                      min: 1,
-                      max: 10
-                    })}
-                    type="number"
-                    min="1"
-                    max="10"
-                    defaultValue={10}
-                    className="w-16 h-8 border border-gray-300 rounded-lg text-center font-medium focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 transition-all duration-200 bg-white"
-                  />
-                  <span className="text-xs font-medium text-gray-400">/10</span>
-                </div>
-              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-gray-500">คะแนน:</span>
+              <input
+                {...register(`quality.${item.key as keyof EvaluationData['quality']}`, {
+                  valueAsNumber: true,
+                  min: 1,
+                  max: 10
+                })}
+                type="number"
+                min="1"
+                max="10"
+                defaultValue={10}
+                className="w-16 px-2 py-1 border border-gray-300 text-center focus:outline-none focus:ring-1 focus:ring-gray-400 focus:border-gray-400"
+              />
+              <span className="text-xs text-gray-400">/10</span>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-200">
-        <div className="flex items-start gap-3">
-          <div className="w-6 h-6 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-            <span className="text-xs font-bold text-white">!</span>
-          </div>
-          <div>
-            <p className="text-sm font-medium text-emerald-900 mb-1">หมายเหตุการให้คะแนน</p>
-            <p className="text-sm text-emerald-800">
-              ให้คะแนนในแต่ละหัวข้อ โดย <span className="font-semibold">1 = น้อยที่สุด</span>, <span className="font-semibold">10 = มากที่สุด</span>
-            </p>
-          </div>
-        </div>
+      <div className="mt-6 p-4 bg-gray-50 border border-gray-200">
+        <p className="text-sm text-gray-700">
+          <strong>หมายเหตุ:</strong> ให้คะแนนในแต่ละหัวข้อ โดย 1 = น้อยที่สุด, 10 = มากที่สุด
+        </p>
       </div>
     </div>
   );
