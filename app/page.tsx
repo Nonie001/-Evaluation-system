@@ -1,6 +1,7 @@
 // app/page.tsx
 
 import EvaluationForm from '@/components/EvaluationForm';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -9,6 +10,15 @@ export default function Home() {
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-6 py-6 max-w-5xl">
           <div className="text-center">
+            <div className="mb-4">
+              <Image
+                src="/logo.jpg"
+                alt="ระบบประเมินการทำงาน"
+                width={160}
+                height={160}
+                className="mx-auto"
+              />
+            </div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">
               ระบบประเมินการทำงาน
             </h1>

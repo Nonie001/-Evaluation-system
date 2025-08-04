@@ -2,6 +2,7 @@
   "name": "employee-evaluation-system",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "description": "ระบบประเมินการทำงาน - Employee Work Evaluation System",
   "scripts": {
     "dev": "next dev --turbopack",

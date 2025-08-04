@@ -7,6 +7,15 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Page break utilities */
+.page-break-before {
+  page-break-before: always;
+}
+
+.page-break-after {
+  page-break-after: always;
+}
+
 /* Print styles */
 @media print {
   body { 
@@ -21,6 +30,14 @@ body {
   }
   
   .print-break {
+    page-break-before: always;
+  }
+  
+  .section-1 {
+    page-break-after: always;
+  }
+  
+  .section-2 {
     page-break-before: always;
   }
 }

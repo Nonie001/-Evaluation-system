@@ -12,6 +12,34 @@ export interface EvaluationData {
   evaluationMonth: string;
   evaluationYear: string;
   
+  // ลักษณะการทำงาน
+  workNature: 'normal' | 'special';
+  workCharacteristic: 'systematic' | 'creative' | 'independent';
+  workSchedule: 'mon-fri' | 'everyday' | 'shift' | 'half-day';
+  workTime: string;
+  
+  // หน้าที่ความรับผิดชอบ
+  task1_1: string;
+  task1_2: string;
+  task1_3: string;
+  task1_4: string;
+  task1_5: string;
+  task1_6: string;
+  task1_7: string;
+  task1_8: string;
+  task1_9: string;
+  task1_11: string;
+  task1_12: string;
+  task1_13: string;
+  
+  // ส่วนที่ 2
+  section2_1: string;
+  section2_2: string;
+  section2_3: string;
+  section2_4: string;
+  section2_5: string;
+  section2_6: string;
+  
   // สถิติการลา
   sickLeave: number;
   personalLeave: number;

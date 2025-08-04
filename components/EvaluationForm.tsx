@@ -17,6 +17,31 @@ export default function EvaluationForm() {
   
   const { register, handleSubmit, watch, formState: { errors } } = useForm<EvaluationData>({
     defaultValues: {
+      // ลักษณะการทำงาน
+      workNature: 'normal',
+      workCharacteristic: 'systematic',
+      workSchedule: 'mon-fri',
+      workTime: '',
+      // หน้าที่ความรับผิดชอบ
+      task1_1: '',
+      task1_2: '',
+      task1_3: '',
+      task1_4: '',
+      task1_5: '',
+      task1_6: '',
+      task1_7: '',
+      task1_8: '',
+      task1_9: '',
+      task1_11: '',
+      task1_12: '',
+      task1_13: '',
+      // ส่วนที่ 2
+      section2_1: '',
+      section2_2: '',
+      section2_3: '',
+      section2_4: '',
+      section2_5: '',
+      section2_6: '',
       sickLeave: 0,
       personalLeave: 0,
       otherLeave: 0,
@@ -62,16 +87,25 @@ export default function EvaluationForm() {
   return (
     <div className="max-w-4xl mx-auto">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-16">
-        <EmployeeInfoSection register={register} errors={errors} />
+        {/* Section 1 - Employee Info */}
+        <div className="section-1">
+          <EmployeeInfoSection register={register} errors={errors} />
+        </div>
         
-        <QualitySection register={register} />
-        
-        <BehaviorSection register={register} />
-        
-        <ScoreSummary formData={formData} />
+        {/* Section 2 - Quality & Behavior Assessment */}
+        <div className="section-2">
+          <QualitySection register={register} />
+          
+          <div className="mt-16">
+            <BehaviorSection register={register} />
+          </div>
+          
+          <div className="mt-16">
+            <ScoreSummary formData={formData} />
+          </div>
 
-        {/* Additional Comments */}
-        <div className="border-b border-gray-200 pb-6">
+          {/* Additional Comments */}
+          <div className="border-b border-gray-200 pb-6 mt-16">
           <h3 className="text-xl font-semibold text-gray-800 mb-6">ความเห็นเพิ่มเติม</h3>
           <div className="space-y-6">
             <div>
@@ -121,6 +155,7 @@ export default function EvaluationForm() {
               </div>
             </div>
           </div>
+        </div>
         </div>
 
         {/* Submit Buttons */}
