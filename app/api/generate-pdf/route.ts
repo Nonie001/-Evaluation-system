@@ -45,163 +45,332 @@ function generateHTMLTemplate(data: EvaluationData): string {
   const totalScore = qualityScore + behaviorScore;
   const percentage = ((totalScore / 150) * 100).toFixed(2);
 
+  function getLateFrequencyText(frequency: string): string {
+    switch(frequency) {
+      case 'never': return '(✓) ไม่เคยมาสาย ( ) มาสาย 1-3 ครั้ง ( ) มาสายมากกว่า 3 ครั้ง';
+      case '1-3': return '( ) ไม่เคยมาสาย (✓) มาสาย 1-3 ครั้ง ( ) มาสายมากกว่า 3 ครั้ง';
+      case 'more3': return '( ) ไม่เคยมาสาย ( ) มาสาย 1-3 ครั้ง (✓) มาสายมากกว่า 3 ครั้ง';
+      default: return '(✓) ไม่เคยมาสาย ( ) มาสาย 1-3 ครั้ง ( ) มาสายมากกว่า 3 ครั้ง';
+    }
+  }
+
   return `
   <!DOCTYPE html>
   <html lang="th">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แบบประเมินการทำงาน</title>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600&display=swap');
+      * {
+        box-sizing: border-box;
+      }
       body {
         font-family: 'Noto Sans Thai', sans-serif;
-        font-size: 14px;
-        line-height: 1.6;
+        font-size: 12px;
+        line-height: 1.4;
         color: #000;
-        padding: 0 20px;
+        padding: 15px;
+        margin: 0;
+        background: white;
       }
-      h1, h2, h3 {
+      h1 {
         text-align: center;
-        margin: 8px 0;
+        font-size: 16px;
+        font-weight: 600;
+        margin: 10px 0;
       }
-      .section {
-        margin-bottom: 20px;
+      h2 {
+        text-align: center;
+        font-size: 13px;
+        font-weight: 400;
+        margin: 5px 0;
       }
-      .info-table, .score-table, .behavior-table {
+      h3 {
+        text-align: center;
+        font-size: 13px;
+        font-weight: 400;
+        margin: 5px 0;
+      }
+      .main-table {
         width: 100%;
         border-collapse: collapse;
-        margin-top: 10px;
+        border: 2px solid #000;
+        margin: 10px 0;
+        table-layout: fixed;
       }
-      .info-table td {
-        padding: 4px 8px;
-      }
-      .score-table th, .score-table td,
-      .behavior-table th, .behavior-table td {
-        border: 1px solid #333;
+      .main-table td, .main-table th {
+        border: 1px solid #000;
         padding: 6px;
+        vertical-align: top;
+        font-size: 11px;
+        word-wrap: break-word;
+      }
+      .section-header {
+        background-color: #f5f5f5;
+        font-weight: bold;
+        text-align: left;
+        padding: 8px;
+      }
+      .score-cell {
         text-align: center;
+        width: 40px;
+        font-weight: bold;
       }
-      .textarea-box {
-        border: 1px dotted #666;
+      .score-header {
+        text-align: center;
+        font-weight: bold;
+        background-color: #f8f8f8;
+      }
+      .text-area {
         min-height: 100px;
-        padding: 10px;
-        white-space: pre-wrap;
+        padding: 8px;
+        border: none;
+        width: 100%;
       }
-      .signature {
-        margin-top: 60px;
+      .signature-section {
+        margin-top: 40px;
         text-align: center;
       }
       .signature-line {
-        display: inline-block;
         border-bottom: 1px dotted #000;
+        display: inline-block;
         width: 200px;
-        margin-bottom: 4px;
+        margin: 0 10px;
+      }
+      .work-details {
+        font-size: 10px;
+        line-height: 1.3;
+        padding: 5px;
+      }
+      .work-item {
+        margin: 3px 0;
+        text-indent: 20px;
+      }
+      .page-break {
+        page-break-before: always;
+      }
+      @media print {
+        body {
+          padding: 10px;
+        }
+        .page-break {
+          page-break-before: always;
+        }
       }
     </style>
   </head>
   <body>
-    <h1>แบบประเมินการทำงานพนักงาน</h1>
-    <h3>สภาเครือข่ายช่วยเหลือด้านมนุษยธรรม สำนักจุฬาราชมนตรี</h3>
-    <h3>ประจำเดือน ${data.evaluationMonth} ${data.evaluationYear}</h3>
+    <h1>แบบประเมินการทำงานจ้างเหมาจำเพาะ</h1>
+    <h2>สภาเครือข่ายช่วยเหลือด้านมนุษยธรรม สำนักจุฬาราชมนตรี</h2>
+    <h3>ประจำเดือน ${data.evaluationMonth || 'สิงหาคม'} ${data.evaluationYear || '2567'}</h3>
 
-    <div class="section">
-      <h2>ส่วนที่ 1 ข้อมูลเจ้าหน้าที่</h2>
-      <table class="info-table">
-        <tr>
-          <td><strong>ชื่อ-สกุล:</strong> ${data.employeeName}</td>
-          <td><strong>ส่วน/ฝ่าย:</strong> ${data.department}</td>
-        </tr>
-        <tr>
-          <td><strong>ตำแหน่ง:</strong> ${data.position || '-'}</td>
-          <td><strong>อัตราค่าจ้าง:</strong> ${data.salary || '-'} บาท</td>
-        </tr>
-        <tr>
-          <td colspan="2"><strong>ระยะเวลาการทำงาน:</strong> ${data.probationStart || '-'} ถึง ${data.probationEnd || '-'}</td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <strong>สถิติการลา:</strong> ลาป่วย ${data.sickLeave} วัน, ลากิจ ${data.personalLeave} วัน,
-            ลาอื่นๆ ${data.otherLeave} วัน, ขาดงาน ${data.absent} วัน
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2"><strong>มาสาย:</strong> 
-            ${data.lateFrequency === 'never' ? 'ไม่เคยมาสาย' : data.lateFrequency === '1-3' ? 'มาสาย 1-3 ครั้ง' : 'มาสายมากกว่า 3 ครั้ง'}
-          </td>
-        </tr>
-      </table>
-    </div>
+    <!-- ส่วนที่ 1 ข้อมูลเจ้าหน้าที่ -->
+    <table class="main-table">
+      <tr>
+        <td class="section-header" colspan="4">ส่วนที่ 1 ข้อมูลเจ้าหน้าที่</td>
+      </tr>
+      <tr>
+        <td style="width: 15%"><strong>ชื่อ-สกุล</strong></td>
+        <td style="width: 35%">${data.employeeName || '............................................'}</td>
+        <td style="width: 15%"><strong>ฝ่าย/แผนก</strong></td>
+        <td style="width: 35%">${data.department || '............................................'}</td>
+      </tr>
+      <tr>
+        <td><strong>ตำแหน่ง</strong></td>
+        <td>${data.position || '............................................'}</td>
+        <td><strong>เงินเดือน</strong></td>
+        <td>${data.salary ? data.salary + ' บาท' : '............................................'}</td>
+      </tr>
+      <tr>
+        <td><strong>ระยะเวลาในงาน</strong></td>
+        <td colspan="3">
+          ${data.probationStart ? `${data.probationStart} ถึงวันที่ ${data.probationEnd || '............................'}` : '............................................'}
+        </td>
+      </tr>
+      <tr>
+        <td><strong>สถิติการลา</strong></td>
+        <td colspan="3">
+          ลาป่วย (${data.sickLeave || 0}) วัน ลากิจ (${data.personalLeave || 0}) วัน 
+          ลาอื่นๆ (${data.otherLeave || 0}) วัน ขาดงาน (${data.absent || 0}) วัน
+          <br>มาสาย: ${getLateFrequencyText(data.lateFrequency || 'never')}
+        </td>
+      </tr>
+      <tr>
+        <td><strong>หน้าที่ความรับผิดชอบ</strong></td>
+        <td colspan="3">
+          <div class="work-details">
+            ${data.workResponsibilities ? data.workResponsibilities.replace(/\n/g, '<br>') : 'ไม่ได้ระบุหน้าที่ความรับผิดชอบ'}
+          </div>
+        </td>
+      </tr>
+    </table>
 
-    <div class="section">
-      <h2>หน้าที่ความรับผิดชอบ</h2>
-      <div class="textarea-box">${data.responsibilities?.replace(/\n/g, '<br/>') || '-'}</div>
-    </div>
+    <!-- Page Break -->
+    <div class="page-break"></div>
 
-    <div class="section">
-      <h2>ส่วนที่ 2 การประเมิน</h2>
-      <h3>ด้านคุณภาพ (50 คะแนน)</h3>
-      <table class="score-table">
-        ${Object.entries(data.quality).map(([key, val], i) => `
-          <tr>
-            <td>2.1.${i+1}</td>
-            <td>${getQualityLabel(key)}</td>
-            <td>${val}</td>
-          </tr>
-        `).join('')}
-      </table>
+    <!-- ส่วนที่ 2 การประเมิน -->
+    <table class="main-table">
+      <tr>
+        <td class="section-header" colspan="3">ส่วนที่ 2 การประเมิน</td>
+      </tr>
+      <tr>
+        <td style="width: 70%"><strong>รายการประเมิน</strong></td>
+        <td class="score-header" style="width: 15%">ระดับคะแนน<br>10 → 1</td>
+        <td class="score-header" style="width: 15%">ความเห็นเพิ่มเติม</td>
+      </tr>
+      
+      <!-- ด้านคุณภาพ -->
+      <tr>
+        <td colspan="3" style="background-color: #f0f0f0; font-weight: bold;">2.1 ด้านคุณภาพ (50)</td>
+      </tr>
+      <tr>
+        <td>2.1.1 งานที่ทำสำเร็จเป็นไปตามเป้าหมายที่กำหนด</td>
+        <td class="score-cell">${data.quality?.goalAchievement || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.1.2 ทักษะ ความรู้ ที่จำเป็นต่อการทำงาน</td>
+        <td class="score-cell">${data.quality?.skills || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.1.3 ความรู้ความเข้าใจในการปฏิบัติงาน</td>
+        <td class="score-cell">${data.quality?.understanding || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.1.4 ความละเอียดรอบคอบ ความถูกต้องของงาน</td>
+        <td class="score-cell">${data.quality?.accuracy || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.1.5 ความรวดเร็ว งานที่ทำแล้วเสร็จในระยะเวลาที่กำหนด</td>
+        <td class="score-cell">${data.quality?.speed || 10}</td>
+        <td></td>
+      </tr>
+      
+      <!-- ด้านพฤติกรรม -->
+      <tr>
+        <td colspan="3" style="background-color: #f0f0f0; font-weight: bold;">2.2 ด้านพฤติกรรม (100)</td>
+      </tr>
+      <tr>
+        <td>2.2.1 การปฏิบัติตามระเบียบ วินัย ตรงต่อเวลา</td>
+        <td class="score-cell">${data.behavior?.discipline || 10}</td>
+        <td>มีความเคารพต่อข้อกำหนดและระเบียบดี</td>
+      </tr>
+      <tr>
+        <td>2.2.2 ความสามารถในการเรียนรู้งาน</td>
+        <td class="score-cell">${data.behavior?.learning || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.2.3 ความคิดริเริ่มสร้างสรรค์</td>
+        <td class="score-cell">${data.behavior?.creativity || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.2.4 ความร่วมมือ การประสานงาน การมีส่วนร่วม</td>
+        <td class="score-cell">${data.behavior?.cooperation || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.2.5 ความมีจิตอาสา ช่วยเหลือผู้อื่น</td>
+        <td class="score-cell">${data.behavior?.volunteer || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.2.6 ความเอื้อเฟื้อเผื่อแผ่</td>
+        <td class="score-cell">${data.behavior?.generosity || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.2.7 ความมีมนุษยสัมพันธ์</td>
+        <td class="score-cell">${data.behavior?.relationship || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.2.8 ความเสียสละและอุทิศเวลาให้กับงาน</td>
+        <td class="score-cell">${data.behavior?.dedication || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.2.9 ความกระตือรือร้น ความมานะพยายาม</td>
+        <td class="score-cell">${data.behavior?.enthusiasm || 10}</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2.2.10 การตัดสินใจและการแก้ปัญหา</td>
+        <td class="score-cell">${data.behavior?.decision || 10}</td>
+        <td></td>
+      </tr>
+    </table>
 
-      <h3>ด้านพฤติกรรม (100 คะแนน)</h3>
-      <table class="score-table">
-        ${Object.entries(data.behavior).map(([key, val], i) => `
-          <tr>
-            <td>2.2.${i+1}</td>
-            <td>${getBehaviorLabel(key)}</td>
-            <td>${val}</td>
-          </tr>
-        `).join('')}
-      </table>
-    </div>
+    <!-- ส่วนที่ 3 ผลการประเมิน -->
+    <table class="main-table">
+      <tr>
+        <td class="section-header" colspan="3">ส่วนที่ 3 ผลการประเมินประจำเดือน</td>
+      </tr>
+      <tr>
+        <td class="score-header" style="width: 50%"><strong>ด้านประเมิน</strong></td>
+        <td class="score-header" style="width: 25%"><strong>คะแนน (150)</strong></td>
+        <td class="score-header" style="width: 25%"><strong>คิดเป็นร้อยละ (100)</strong></td>
+      </tr>
+      <tr>
+        <td>3.1 ด้านคุณภาพ (50 คะแนนเต็ม)</td>
+        <td class="score-cell">${qualityScore}</td>
+        <td class="score-cell">${((qualityScore / 50) * 100).toFixed(0)}</td>
+      </tr>
+      <tr>
+        <td>3.2 ด้านพฤติกรรม (100 คะแนนเต็ม)</td>
+        <td class="score-cell">${behaviorScore}</td>
+        <td class="score-cell">${((behaviorScore / 100) * 100).toFixed(0)}</td>
+      </tr>
+      <tr style="background-color: #f8f8f8; font-weight: bold;">
+        <td><strong>รวม</strong></td>
+        <td class="score-cell"><strong>${totalScore}</strong></td>
+        <td class="score-cell"><strong>${((totalScore / 150) * 100).toFixed(0)}</strong></td>
+      </tr>
+    </table>
 
-    <div class="section">
-      <h2>ส่วนที่ 3 ผลการประเมินประจำเดือน</h2>
-      <table class="score-table">
-        <tr>
-          <th>ด้านที่ประเมิน</th>
-          <th>คะแนน (150)</th>
-          <th>คิดเป็นร้อยละ (100)</th>
-        </tr>
-        <tr>
-          <td>3.1 ด้านคุณภาพ</td>
-          <td>${qualityScore}</td>
-          <td>${((qualityScore / 50) * 100).toFixed(0)}</td>
-        </tr>
-        <tr>
-          <td>3.2 ด้านพฤติกรรม</td>
-          <td>${behaviorScore}</td>
-          <td>${((behaviorScore / 100) * 100).toFixed(0)}</td>
-        </tr>
-        <tr>
-          <td><strong>รวม</strong></td>
-          <td><strong>${totalScore}</strong></td>
-          <td><strong>${percentage}</strong></td>
-        </tr>
-      </table>
-    </div>
+    <!-- ความเห็นเพิ่มเติม -->
+    <table class="main-table">
+      <tr>
+        <td class="section-header">ความเห็นเพิ่มเติม</td>
+      </tr>
+      <tr>
+        <td class="text-area">
+          ${data.additionalComments ? data.additionalComments.replace(/\n/g, '<br/>') : ''}
+          <br><br>................................................................................................................................................................................................<br><br>................................................................................................................................................................................................
+        </td>
+      </tr>
+    </table>
 
-    ${data.additionalComments ? `
-    <div class="section">
-      <h3>ความเห็นเพิ่มเติม</h3>
-      <div class="textarea-box">${data.additionalComments.replace(/\n/g, '<br/>')}</div>
-    </div>
-    ` : ''}
-
-    <div class="signature">
+    <!-- ลายเซ็นผู้ประเมิน -->
+    <div class="signature-section">
       <p>ลงชื่อ <span class="signature-line"></span> ผู้ประเมิน</p>
-      <p>( ${data.evaluatorName} )</p>
-      <p>${data.evaluatorPosition}</p>
+      <p>( <u>${data.evaluatorName || '........................................'}</u> )</p>
+      <p>${data.evaluatorPosition || 'หัวหน้างาน / ผู้จัดการ / ผู้อำนวยการ'}</p>
     </div>
   </body>
   </html>
   `;
+}
+
+  function getWorkResponsibilities(): string {
+    return `
+      <div class="work-item">1.6. จัดทำสถานการงบํประมาณ และงานเศรษฐกิจให้ประเมิน</div>
+      <div class="work-item">1.7. จัดทำราชการสักจังหวัดมเร</div>
+      <div class="work-item">1.8. จัดทำแลกเปลี่ยนการศึกษาเรื่อยผลิตภัณฑ์และศิลปกิจ</div>
+      <div class="work-item">1.9. ประสานงานการยายไปหมายเศษการศิลปาราจานี</div>
+      <div class="work-item">1.10.ประสานงานยายหาคุ้มครองประสานงานศิลปาและเคร่อมนู่นวดใข้การศิลปาจาง ฯ ฯ</div>
+      <div class="work-item">1.11.จัดทำการษาการประดับ (power point) เพื่อการทำงานงบประมาณแลวมเซร่ามใให้มประเมินจำนั่</div>
+      <br>
+      <div class="work-item">1.12.จัดทำการษาการประดับ (power point) สำหรับการชื่นมาเจ้าทีให้มประเมิน และแร้งประเมิน</div>
+      <div class="work-item">1.13.ปฏิบัติงานให้เพื่อดำรู้รง ฯ ๆ งามการประไจนำไปให้มประโยชน์</div>
+    `;
+  }
 
   function getQualityLabel(key: string): string {
     const map: Record<string, string> = {
@@ -229,4 +398,3 @@ function generateHTMLTemplate(data: EvaluationData): string {
     };
     return map[key] || key;
   }
-}

@@ -1,16 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "ระบบประเมินการทำงาน - Employee Work Evaluation System",
@@ -35,7 +24,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased font-sarabun`}
+        className="antialiased font-sarabun"
         style={{ fontFamily: '"Sarabun", "Arial", sans-serif' }}
       >
         {children}

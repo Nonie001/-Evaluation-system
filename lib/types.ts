@@ -39,6 +39,7 @@ export interface EvaluationData {
   section2_4: string;
   section2_5: string;
   section2_6: string;
+  workResponsibilities: string;
   
   // สถิติการลา
   sickLeave: number;
